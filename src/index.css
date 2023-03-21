@@ -1,7 +1,8 @@
 body {
+  
+  background-color: #FFFFFF;
+
   margin: 0;
   border: 0;
   padding: 0;
-  background-color: #C0BDBD;
-  justify-content: flex-start;
 }
