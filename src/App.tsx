@@ -5,10 +5,10 @@ import NavigationMenu from './components/navigation_menu/NavigationMenu'
 function App() {
 
   return (
-    <section className="App">
+    <div className="App">
       <NavigationMenu/>
       <Game/>
-    </section>
+    </div>
   )
 }
 

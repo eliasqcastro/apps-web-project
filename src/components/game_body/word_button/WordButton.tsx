@@ -4,7 +4,7 @@ function WordButton(){
 
     return(
 
-        <button className="word_button">Test</button>
+        <button className="word_button">Word</button>
     )
 }
 

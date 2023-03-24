@@ -1,8 +1,8 @@
 .word_button{
 
-    background-color: white;
-    padding: 4vh 8vw;
-    border-radius: 10px;
-    border-color: transparent;
-
+    padding: 4vh 4vw;
+    border-radius: 33px;
+    text-align: center;
+    font-family: var(--font);
+    font-size: 32px;
 }
