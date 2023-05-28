@@ -10,6 +10,7 @@ const UserProvider = ({children}:any) => {
     const [couldLogin, setCouldLogin] = useState(false)
     const [user, setUser] = useState<any>(null)
     const [loading, setLoading] = useState(false)
+    const [gameRecords, setGameRecords] = useState<{maxGameDuration: number, maxHits: number, maxMistakes: number}>({maxGameDuration: 0, maxHits: 0, maxMistakes: 0})
 
     useEffect(() => {
 
@@ -42,7 +43,7 @@ const UserProvider = ({children}:any) => {
 
     return(
 
-        <UserContext.Provider value={{couldLogin, signIn, signOut, user, loading}}>
+        <UserContext.Provider value={{couldLogin, signIn, signOut, user, loading, gameRecords, setGameRecords}}>
             {children}
         </UserContext.Provider>
     )

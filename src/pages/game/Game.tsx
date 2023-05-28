@@ -1,17 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import './Game.css'
 import { getFirestore, getDocs, addDoc, collection } from "firebase/firestore"
 import firebaseApp from '../../services/firebase';
+import { UserContext } from '../../context/User';
 
 function Game() { //ClassName prefix: 251 (pages/game/Game)
 
     const firestore = getFirestore(firebaseApp)
 
-    const [imageLink, setImageLink] = useState<string>("https://upload.wikimedia.org/wikipedia/commons/2/20/Point_d_interrogation.jpg") //'https:via.placeholder.com/500'
+    const { gameRecords ,setGameRecords }: any = useContext(UserContext)
 
-    const [allGameItens, setAllGameItens] = useState<any[]>([])
+    const [imageLink, setImageLink] = useState<any>("https://upload.wikimedia.org/wikipedia/commons/2/20/Point_d_interrogation.jpg") //'https:via.placeholder.com/500'
 
-    const [selectedItems, setSelectedItems] = useState<{Id: string, Name: string, ImageLink: string}[]>([])
+    const [allGameItens, setAllGameItens] = useState<{Id: string, Name: string, ImageLink: string}[]>([])
+
+    const [selectedItems, setSelectedItems] = useState<{Id: string, Name: string, ImageLink: string}[]>([])//: 
 
     const [countdownTimer, setCountdownTimer] = useState(0);
 
@@ -43,16 +46,11 @@ function Game() { //ClassName prefix: 251 (pages/game/Game)
 
             const docs = await getDocs(collection(firestore, "Things"))
 
-            const thingsAUX: any = []
+            const thingsAUX: any[] = []
 
             docs.forEach((doc: any) => {
 
-                const imageLinkAux: string = String(doc.data().ImageLink);
-
-                if (imageLinkAux.endsWith(".jpg")) {
-
-                    thingsAUX.push({ id: doc.id, ...doc.data() })
-                }
+                thingsAUX.push({Id: doc.id, ...doc.data()})
             })
 
             setAllGameItens([...thingsAUX])
@@ -83,12 +81,14 @@ function Game() { //ClassName prefix: 251 (pages/game/Game)
 
     const stopTimer = () => {
 
+        let hits = 0, mistakes = 0, maxTime = 0;
+    
         setIsRunning(false);
     };
 
     const butStartOnClick = () => {
 
-        setCountdownTimer(5);
+        setCountdownTimer(120);
         setIsRunning(true);
 
         loadNewRound()
@@ -98,7 +98,7 @@ function Game() { //ClassName prefix: 251 (pages/game/Game)
 
         if (selectedItems.length > 0) {
 
-            const randomIndex = Math.floor(Math.random() * (allGameItens.length - 1));
+            const randomIndex = Math.floor(Math.random() * (selectedItems.length - 1));
 
             setImageLink(String(selectedItems[randomIndex].ImageLink))
 
